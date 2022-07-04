@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Joan&display=swap');
+
+:root {
+  --palette-1: #0D1821;
+  --palette-2: #344966;
+  --palette-3: #B4CDED;
+  --palette-4: #F0F4EF;
+  --palette-5: #BFCC94;
+
+  --background-color: var(--palette-1);
+  --font-color: var(--palette-4);
+}
+
+html {
+  min-height: 100vh;
+  display: flex;
+}
+
+body {
+  margin: 0;
+  padding: 32px;
+  flex: 1;
+
+  background: var(--background-color);
+  background-image: url("./resources/background.svg");
+  background-attachment: fixed;
+  background-size: cover;
+  
+  color: var(--font-color);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 70px;
+}
+
+header {
+  font-family: 'Joan', serif;
+}
+
+#header-text {
+  margin: 0 0 8px;
+
+  font-size: 4rem;
+  font-weight: 300;
+  text-shadow: 0 5px rgba(255, 255, 255, 0.05);
+}
+
+#subheader-text {
+  font-size: 1.5rem;
+}
+
+main {
+  font-size: 1rem;
+  font-family: 'Fira Code', monospace;
+}
+
+main dl, main dt, main dd {
+  margin: 0;
+  padding: 0;
+}
+
+main dl > div {
+  padding-bottom: 1rem;
+}
+
+main dl > div:last-of-type {
+  padding-bottom: 0;
+}
+
+main dt {
+  font-weight: bold;
+}
+
+dl::before, dl::after, dt::before, dt::after, dd::before, dd::after, .link-arrow::before {
+  opacity: 0.35;
+  font-weight: normal;
+}
+
+.link-arrow::before {
+  content: "->";
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+}
+
+.link {
+  position: relative;
+
+  color: var(--font-color);
+  outline: 0px solid var(--font-color);
+  text-decoration: none;
+
+  transition: color 0.2s ease-out, outline-width 0.1s ease-out;
+}
+
+.link::after {
+  content: '';
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  display: block;
+  background: var(--font-color);
+  transition: height 0.2s ease-out;
+  z-index: -1;
+}
+
+main dd:hover .link, main dd:focus-within .link {
+  color: var(--background-color);
+}
+
+main dd:hover .link::after, main dd:focus-within .link::after {
+  height: 100%;
+}
+
+main dd:hover .link-arrow::before, main dd:focus-within .link-arrow::before {
+  transform: translateX(3px);
+  opacity: 1;
+}
+
+main .link:hover {
+  outline-width: 3px;
+}
+
+footer {
+  font-family: 'Joan', serif;
+}
+
+.end-mark::before {
+  content: ";";
+  width: 1rem;
+  height: 1rem;
+
+  margin-left: 1rem;
+
+  font-family: 'Fira Code', monospace;
+  font-size: 1rem;
+  color: var(--background-color);
+  background: var(--font-color);
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@media (min-width: 460px) {
+  main dl > div dd, main dl > div dt {
+    padding-left: 32px;
+  }
+
+  dt:hover, dd:hover, dd:focus-within {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  dl::before {
+    content: "<dl>";
+    display: block;
+  }
+  
+  dl::after {
+    content: "</dl>";
+    display: block;
+  }
+  
+  dt::before {
+    content: "<dt>";
+  }
+  
+  dt::after {
+    content: "</dt>";
+  }
+  
+  dd::before {
+    content: "<dd>";
+  }
+  
+  dd::after {
+    content: "</dd>";
+  }
+}
+
+
+@media (min-width: 720px) {
+  #header-text {
+    font-size: 5rem;
+  }
+
+  body {
+    gap: 100px;
+  }
+
+  main {
+    font-size: 1.5rem;
+  }
+}
