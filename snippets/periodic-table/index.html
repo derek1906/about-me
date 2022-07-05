@@ -1,0 +1,431 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Periodic Table</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+        </script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Arial";
+            min-width: 1000px;
+            padding: 8px;
+        }
+
+        #topbar {
+            margin-bottom: 8px;
+            padding: 2px 5px;
+        }
+
+        .columnlabel,
+        .rowlabel {
+            background: #C0C0C0;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .columnlabel {
+            height: 30px;
+        }
+
+        .rowlabel {
+            width: 30px;
+        }
+
+        td {
+            text-align: center;
+            border: 1px solid black;
+            height: 50px;
+            overflow: hidden;
+        }
+
+        td[rowspan],
+        td[colspan] {
+            border: 0;
+        }
+
+        td>a {
+            color: black;
+            font-size: 23px;
+            font-family: "Arial";
+            text-decoration: none;
+        }
+
+        td>a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 0;
+            width: 100%;
+        }
+
+        .nonmetal {
+            background: #00FF00;
+            background: -moz-linear-gradient(-45deg, hsl(120, 100%, 81%) 0%, hsl(120, 100%, 50%) 100%);
+            background: -webkit-linear-gradient(-45deg, hsl(120, 100%, 81%) 0%, hsl(120, 100%, 50%) 100%);
+        }
+
+        .nobleGas {
+            background: #FF8000;
+            background: -moz-linear-gradient(-45deg, hsl(30, 100%, 69%) 0%, hsl(30, 100%, 50%) 100%);
+            background: -webkit-linear-gradient(-45deg, hsl(30, 100%, 69%) 0%, hsl(30, 100%, 50%) 100%);
+        }
+
+        .alkali {
+            background: #008080;
+            background: -moz-linear-gradient(-45deg, hsl(180, 100%, 35%) 0%, hsl(180, 100%, 25%) 100%);
+            background: -webkit-linear-gradient(-45deg, hsl(180, 100%, 35%) 0%, hsl(180, 100%, 25%) 100%);
+        }
+
+        .alkalineEarth {
+            background: #FF0000;
+            background: -moz-linear-gradient(-45deg, hsl(0, 100%, 66%) 0%, hsl(0, 100%, 50%) 100%);
+            background: -webkit-linear-gradient(-45deg, hsl(0, 100%, 66%) 0%, hsl(0, 100%, 50%) 100%);
+        }
+
+        .metalloid {
+            background: #FF00FF;
+            background: -moz-linear-gradient(-45deg, hsl(300, 100%, 74%) 0%, hsl(300, 100%, 50%) 100%);
+            background: -webkit-linear-gradient(-45deg, hsl(300, 100%, 74%) 0%, hsl(300, 100%, 50%) 100%);
+        }
+
+        .halogen {
+            background: #FF80FF;
+            background: -moz-linear-gradient(-45deg, hsl(300, 100%, 87%) 0%, hsl(300, 100%, 75%) 100%);
+            background: -webkit-linear-gradient(-45deg, hsl(300, 100%, 87%) 0%, hsl(300, 100%, 75%) 100%);
+        }
+
+        .otherMetal {
+            background: #00FFFF;
+            background: -moz-linear-gradient(-45deg, hsl(180, 100%, 75%) 0%, hsl(180, 100%, 50%) 100%);
+            background: -webkit-linear-gradient(-45deg, hsl(180, 100%, 75%) 0%, hsl(180, 100%, 50%) 100%);
+        }
+
+        .transition {
+            background: #FFFF00;
+            background: -moz-linear-gradient(-45deg, hsl(60, 100%, 70%) 0%, hsl(60, 100%, 50%) 100%);
+            background: -webkit-linear-gradient(-45deg, hsl(60, 100%, 70%) 0%, hsl(60, 100%, 50%) 100%);
+        }
+
+        .rareEarth {
+            background: #808000;
+            background: -moz-linear-gradient(-45deg, hsl(60, 100%, 31%) 0%, hsl(60, 100%, 25%) 100%);
+            background: -webkit-linear-gradient(-45deg, hsl(60, 100%, 31%) 0%, hsl(60, 100%, 25%) 100%);
+        }
+
+        .element {
+            -webkit-transition: -webkit-transform 0.05s ease-out;
+        }
+
+        .highlight,
+        .userHighlighted {
+            box-shadow: 0px 1px 15px #555;
+            transform: translate(0px, -5px);
+            -webkit-transform: translate(0px, -5px);
+            -moz-transform: translate(0px, -5px);
+        }
+
+        .info>div {
+            font-size: 12px;
+        }
+
+        #display>span {
+            height: 30px;
+            border: 1px solid black;
+            border-right: none;
+            padding: 2px 5px;
+            cursor: pointer;
+        }
+
+        #display>span:first-child {
+            border-radius: 5px 0px 0px 5px;
+        }
+
+        #display>span:last-child {
+            border-right: 1px solid black;
+            border-radius: 0px 5px 5px 0px;
+        }
+
+        #display>span:hover {
+            background: rgb(245, 245, 245);
+        }
+
+        #display>span.selected {
+            background: rgb(240, 240, 240);
+        }
+
+        .info {
+            display: block;
+            position: relative;
+            height: 15px;
+        }
+
+        .info>div {
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            opacity: 0;
+            overflow: hidden;
+            -webkit-transition: opacity 0.2s ease-in-out;
+        }
+
+        .info>div.show {
+            opacity: 1;
+        }
+
+        #legend>div {
+            width: 130px;
+            display: inline-block;
+            text-align: left;
+        }
+
+        #legend>div>.icon {
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            border: 1px solid black;
+        }
+    </style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="./utils.js"></script>
+    <script src="./main.js"></script>
+</head>
+
+<body>
+    <form id="topbar" class="form-inline" role="form">
+        Search: <input type="search" id="highlight" autocorrect="off" autocapitalize="off" spellcheck="false"
+            placeholder="Enter a list of elements" class="form-control input-sm"> |
+        <div id="display" class="btn-group btn-group-sm">
+            <button id="name" class="btn btn-default">Name</button>
+            <button id="mass" class="btn-primary btn btn-default">Atomic Mass</button>
+            <button id="electronegativity" class="btn btn-default">Electronegativity</button>
+            <button id="ionizationenergy" class="btn btn-default">Ionization Engergy</button>
+        </div> |
+        <button id="calmass" class="btn btn-success btn-sm">Analyze Molecule</button>
+    </form>
+    <table>
+        <tr>
+            <td class="columnlabel">&nbsp;</td>
+            <td class="columnlabel">1</td>
+            <td class="columnlabel">2</td>
+            <td class="columnlabel">3</td>
+            <td class="columnlabel">4</td>
+            <td class="columnlabel">5</td>
+            <td class="columnlabel">6</td>
+            <td class="columnlabel">7</td>
+            <td class="columnlabel">8</td>
+            <td class="columnlabel">9</td>
+            <td class="columnlabel">10</td>
+            <td class="columnlabel">11</td>
+            <td class="columnlabel">12</td>
+            <td class="columnlabel">13</td>
+            <td class="columnlabel">14</td>
+            <td class="columnlabel">15</td>
+            <td class="columnlabel">16</td>
+            <td class="columnlabel">17</td>
+            <td class="columnlabel">18</td>
+        </tr>
+        <tr>
+            <td class="rowlabel">1</td>
+            <td class="nonmetal element"><a>H</a></td>
+            <td colspan="16"></td>
+            <td class="nobleGas element"><a>He</a></td>
+        </tr>
+        <tr>
+            <td class="rowlabel">2</td>
+            <td class="alkali element"><a>Li</a></td>
+            <td class="alkalineEarth element"><a>Be</a></td>
+            <td rowspan="2" colspan="10">
+                <div id="legend">
+                    <div>
+                        <div class="alkali icon"></div> Alkali
+                    </div>
+                    <div>
+                        <div class="icon alkalineEarth"></div> Alkaline earth
+                    </div>
+                    <div>
+                        <div class="icon transition"></div> Transition metal
+                    </div><br>
+                    <div>
+                        <div class="icon otherMetal"></div> Poor metal
+                    </div>
+                    <div>
+                        <div class="icon metalloid"></div> Metalloid
+                    </div>
+                    <div>
+                        <div class="icon halogen"></div> Halogen
+                    </div><br>
+                    <div>
+                        <div class="icon nobleGas"></div> Noble gas
+                    </div>
+                    <div>
+                        <div class="icon rareEarth"></div> Rare earth
+                    </div>
+                    <div>
+                        <div class="icon nonmetal"></div> Non-metal
+                    </div>
+                </div>
+
+            </td>
+            <td class="metalloid element"><a>B</a></td>
+            <td class="nonmetal element"><a>C</a></td>
+            <td class="nonmetal element"><a>N</a></td>
+            <td class="nonmetal element"><a>O</a></td>
+            <td class="halogen element"><a>F</a></td>
+            <td class="nobleGas element"><a>Ne</a></td>
+        </tr>
+        <tr>
+            <td class="rowlabel">3</td>
+            <td class="alkali element"><a>Na</a></td>
+            <td class="alkalineEarth element"><a>Mg</a></td>
+            <td class="otherMetal element"><a>Al</a></td>
+            <td class="metalloid element"><a>Si</a></td>
+            <td class="nonmetal element"><a>P</a></td>
+            <td class="nonmetal element"><a>S</a></td>
+            <td class="halogen element"><a>Cl</a></td>
+            <td class="nobleGas element"><a>Ar</a></td>
+        </tr>
+        <tr>
+            <td class="rowlabel">4</td>
+            <td class="alkali element"><a>K</a></td>
+            <td class="alkalineEarth element"><a>Ca</a></td>
+            <td class="transition element"><a>Sc</a></td>
+            <td class="transition element"><a>Ti</a></td>
+            <td class="transition element"><a>V</a></td>
+            <td class="transition element"><a>Cr</a></td>
+            <td class="transition element"><a>Mn</a></td>
+            <td class="transition element"><a>Fe</a></td>
+            <td class="transition element"><a>Co</a></td>
+            <td class="transition element"><a>Ni</a></td>
+            <td class="transition element"><a>Cu</a></td>
+            <td class="transition element"><a>Zn</a></td>
+            <td class="otherMetal element"><a>Ga</a></td>
+            <td class="metalloid element"><a>Ge</a></td>
+            <td class="metalloid element"><a>As</a></td>
+            <td class="nonmetal element"><a>Se</a></td>
+            <td class="halogen element"><a>Br</a></td>
+            <td class="nobleGas element"><a>Kr</a></td>
+        </tr>
+        <tr>
+            <td class="rowlabel">5</td>
+            <td class="alkali element"><a>Rb</a></td>
+            <td class="alkalineEarth element"><a>Sr</a></td>
+            <td class="transition element"><a>Y</a></td>
+            <td class="transition element"><a>Zr</a></td>
+            <td class="transition element"><a>Nb</a></td>
+            <td class="transition element"><a>Mo</a></td>
+            <td class="transition element"><a>Tc</a></td>
+            <td class="transition element"><a>Ru</a></td>
+            <td class="transition element"><a>Rh</a></td>
+            <td class="transition element"><a>Pd</a></td>
+            <td class="transition element"><a>Ag</a></td>
+            <td class="transition element"><a>Cd</a></td>
+            <td class="otherMetal element"><a>In</a></td>
+            <td class="otherMetal element"><a>Sn</a></td>
+            <td class="metalloid element"><a>Sb</a></td>
+            <td class="metalloid element"><a>Te</a></td>
+            <td class="halogen element"><a>I</a></td>
+            <td class="nobleGas element"><a>Xe</a></td>
+        </tr>
+        <tr>
+            <td class="rowlabel">6</td>
+            <td class="alkali element"><a>Cs</a></td>
+            <td class="alkalineEarth element"><a>Ba</a></td>
+            <td class="rareEarth">
+                <font size="4">*</font>
+            </td>
+            <td class="transition element"><a>Hf</a></td>
+            <td class="transition element"><a>Ta</a></td>
+            <td class="transition element"><a>W</a></td>
+            <td class="transition element"><a>Re</a></td>
+            <td class="transition element"><a>Os</a></td>
+            <td class="transition element"><a>Ir</a></td>
+            <td class="transition element"><a>Pt</a></td>
+            <td class="transition element"><a>Au</a></td>
+            <td class="transition element"><a>Hg</a></td>
+            <td class="otherMetal element"><a>Tl</a></td>
+            <td class="otherMetal element"><a>Pb</a></td>
+            <td class="otherMetal element"><a>Bi</a></td>
+            <td class="metalloid element"><a>Po</a></td>
+            <td class="halogen element"><a>At</a></td>
+            <td class="nobleGas element"><a>Rn</a></td>
+        </tr>
+        <tr>
+            <td class="rowlabel">7</td>
+            <td class="alkali element"><a>Fr</a></td>
+            <td class="alkalineEarth element"><a>Ra</a></td>
+            <td class="rareEarth">
+                <font size="4">**</font>
+            </td>
+            <td class="transition element"><a>Rf</a></td>
+            <td class="transition element"><a>Db</a></td>
+            <td class="transition element"><a>Sg</a></td>
+            <td class="transition element"><a>Bh</a></td>
+            <td class="transition element"><a>Hs</a></td>
+            <td class="transition element"><a>Mt</a></td>
+            <td class="transition element"><a>Ds</a></td>
+            <td class="transition element"><a>Rg</a></td>
+            <td class="transition element"><a>Uub</a></td>
+            <td class="transition element"><a>Uut</a></td>
+            <td class="transition element"><a>Uuq</a></td>
+            <td class="transition element"><a>Uup</a></td>
+            <td class="transition element"><a>Uuh</a></td>
+            <td class="transition element"><a>Uus</a></td>
+            <td class="transition element"><a>Uuo</a></td>
+        </tr>
+        <tr>
+            <td rowspan="5" colspan="3"></td>
+            <td colspan="16"></td>
+        </tr>
+        <tr>
+            <td class="rareEarth">*</td>
+            <td class="rareEarth element"><a>La</a></td>
+            <td class="rareEarth element"><a>Ce</a></td>
+            <td class="rareEarth element"><a>Pr</a></td>
+            <td class="rareEarth element"><a>Nd</a></td>
+            <td class="rareEarth element"><a>Pm</a></td>
+            <td class="rareEarth element"><a>Sm</a></td>
+            <td class="rareEarth element"><a>Eu</a></td>
+            <td class="rareEarth element"><a>Gd</a></td>
+            <td class="rareEarth element"><a>Tb</a></td>
+            <td class="rareEarth element"><a>Dy</a></td>
+            <td class="rareEarth element"><a>Ho</a></td>
+            <td class="rareEarth element"><a>Er</a></td>
+            <td class="rareEarth element"><a>Tm</a></td>
+            <td class="rareEarth element"><a>Yb</a></td>
+            <td class="rareEarth element"><a>Lu</a></td>
+        </tr>
+        <tr>
+            <td class="rareEarth">**</td>
+            <td class="rareEarth element"><a>Ac</a></td>
+            <td class="rareEarth element"><a>Th</a></td>
+            <td class="rareEarth element"><a>Pa</a></td>
+            <td class="rareEarth element"><a>U</a></td>
+            <td class="rareEarth element"><a>Np</a></td>
+            <td class="rareEarth element"><a>Pu</a></td>
+            <td class="rareEarth element"><a>Am</a></td>
+            <td class="rareEarth element"><a>Cm</a></td>
+            <td class="rareEarth element"><a>Bk</a></td>
+            <td class="rareEarth element"><a>Cf</a></td>
+            <td class="rareEarth element"><a>Es</a></td>
+            <td class="rareEarth element"><a>Fm</a></td>
+            <td class="rareEarth element"><a>Md</a></td>
+            <td class="rareEarth element"><a>No</a></td>
+            <td class="rareEarth element"><a>Lr</a></td>
+        </tr>
+    </table>
+    <a href="http://www.lenntech.com/periodic/name/alphabetic.htm" target="_blank" class="pull-right">Source</a>
+</body>
+
+</html>
