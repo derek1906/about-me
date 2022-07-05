@@ -1,0 +1,56 @@
+figure {
+	display: block;
+	max-width: 100%;
+	max-height: 30em;
+	border: 1px solid rgb(210, 210, 210);
+	border-radius: 5px;
+	padding: 0.5em;
+	margin: 1em auto;
+	float: right;
+	width: 250px;
+	border: 1px solid rgb(210, 210, 210);
+	padding: 0.5em;
+	margin: 0.3em;
+}
+
+figure > img {
+	width: 100%;
+}
+
+figure > figcaption {
+  font-size: 0.9rem;
+  font-family: 'Joan', serif;
+}
+
+#renderings {
+	margin: 0;
+	padding: 0;
+  text-align: center;
+}
+
+#renderings > li {
+	list-style: none;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+  max-width: 33%;
+}
+
+#renderings img {
+  max-width: 100%;
+	max-height: 200px;
+}
+
+@media(max-width: 720px) {
+	figure {
+		float: none;
+		margin: 1em auto;
+		display: block;
+		height: auto;
+		max-width: 300px;
+	}
+
+  #renderings > li {
+    max-width: 100%;
+  }
+}
