@@ -123,6 +123,10 @@ header:hover #header-text {
   color: var(--background-color);
 }
 
+.external.link::before {
+  content: "⇗ ";
+}
+
 main {
   padding: 10px 0px;
   font-size: 1rem;
