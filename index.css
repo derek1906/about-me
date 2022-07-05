@@ -1,32 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Joan&display=swap');
-
-:root {
-  --palette-1: #0D1821;
-  --palette-2: #344966;
-  --palette-3: #B4CDED;
-  --palette-4: #F0F4EF;
-  --palette-5: #BFCC94;
-
-  --background-color: var(--palette-1);
-  --font-color: var(--palette-4);
-}
-
-html {
-  min-height: 100vh;
-  display: flex;
-}
-
 body {
   margin: 0;
   padding: 32px;
   flex: 1;
-
-  background: var(--background-color);
-  background-image: url("./resources/background.svg");
-  background-attachment: fixed;
-  background-size: cover;
-  
-  color: var(--font-color);
 
   display: flex;
   flex-direction: column;
@@ -73,55 +48,9 @@ main dt {
   font-weight: bold;
 }
 
-dl::before, dl::after, dt::before, dt::after, dd::before, dd::after, .link-arrow::before {
+dl::before, dl::after, dt::before, dt::after, dd::before, dd::after {
   opacity: 0.35;
   font-weight: normal;
-}
-
-.link-arrow::before {
-  content: "->";
-  display: inline-block;
-  transition: transform 0.2s ease-out;
-}
-
-.link {
-  position: relative;
-
-  color: var(--font-color);
-  outline: 0px solid var(--font-color);
-  text-decoration: none;
-
-  transition: color 0.2s ease-out, outline-width 0.1s ease-out;
-}
-
-.link::after {
-  content: '';
-  width: 100%;
-  height: 1px;
-  position: absolute;
-  bottom: 0px;
-  left: 0;
-  display: block;
-  background: var(--font-color);
-  transition: height 0.2s ease-out;
-  z-index: -1;
-}
-
-main dd:hover .link, main dd:focus-within .link {
-  color: var(--background-color);
-}
-
-main dd:hover .link::after, main dd:focus-within .link::after {
-  height: 100%;
-}
-
-main dd:hover .link-arrow::before, main dd:focus-within .link-arrow::before {
-  transform: translateX(3px);
-  opacity: 1;
-}
-
-main .link:hover {
-  outline-width: 3px;
 }
 
 footer {
