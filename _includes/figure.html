@@ -1,4 +1,4 @@
 <figure>
-  <img src="/assets/images/{{ include.name }}" alt="{{ include.alt }}">
+  {% include image.html alt=include.alt name=include.name %}
   <figcaption>{{ include.caption }}</figcaption>
 </figure>
