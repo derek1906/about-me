@@ -1,0 +1,18 @@
+---
+layout: base
+---
+<link rel="stylesheet" href="/assets/css/base_page.css">
+
+<header>
+  <div id="header-text-container">
+    <div id="back-button-container">
+      <a id="back-button" href="{{ page.previous-url }}" class="link">❮ Back to {{ page.previous-title }}</a>
+    </div>
+    <h1 id="header-text">{{ page.title }}</h1>
+  </div>
+  <span id="subheader-text">{{ page.subtitle }}</span>
+</header>
+
+<main>
+  {{ content }}
+</main>

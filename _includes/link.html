@@ -1,0 +1,5 @@
+{% if include.url contains "://" %}
+<a href="{{include.url}}" class="external link" ref="noreferrer noopener">{{include.name}}</a>
+{% else %}
+<a href="{{include.url}}" class="link">{{include.name}}</a>
+{% endif %}

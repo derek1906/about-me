@@ -1,0 +1,47 @@
+- name: Machine Learning Things
+  projects:
+    - name: FlappyAI
+      url: https://github.com/derek1906/FlappyAI
+      description: >
+          Applying Q-Learning to a custom made FlappyBird simulator. It is surprisingly effective.
+    - name: Clustering Algorithms Visualization
+      url: /snippets/clustering
+      description: Visualization of different clustering algorithms in data mining.
+
+- name: 3D Things
+  projects:
+    - name: Tiny 3D Renderer
+      url: /snippets/3d
+      description: >
+          A tiny 3D renderer created from scratch. I mainly built this to see if the formulas
+          described in lectures were correct and most importantly, to see them in action.
+    - name: Gallery
+      url: /me/computer-graphics
+      description: Computer graphics is fun.
+
+- name: More Wacky Projects and Things
+  description: >
+      Also visit
+      <a href="https://jsfiddle.net/user/DerekL/fiddles/" class="external link" ref="noreferrer noopener">my jsFiddle</a>
+      for extra things to play with.
+  projects:
+    - name: The Amazing InfoDB
+      url: https://github.com/derek1906/InfoDB
+      description: >
+          InfoDB lets you search through the entire IMDb database and finds connections between
+          people. Although the exported database is not uploaded due to file size constraints, watch
+          this
+          <a href="https://www.youtube.com/watch?v=LqMV8iCdpFs" class="external link" rel="noreferrer noopener">video demo</a>
+          instead to get an idea of how it works.
+    - name: Sudoku Solver
+      url: https://github.com/derek1906/SimpleSudokuSolver
+      description: A simple and fast Sudoku solver written in C++.
+    - name: Fancy Chess Game
+      url: https://github.com/derek1906/FancyChessGame
+      description: A chess game that I created for a class.
+    - name: ASCII Art Creator
+      url: https://jsfiddle.net/DerekL/73FYj/
+      description: Convert images into characters based on color values.
+    - name: Periodic Table
+      url: /snippets/periodic-table
+      description: Interactive periodic table with search and automatic calculations.

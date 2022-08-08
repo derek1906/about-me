@@ -1,0 +1,31 @@
+---
+permalink: /works/
+title: Works
+subtitle: AKA code attic without the dust.
+previous-title: home
+previous-url: /
+---
+
+<link rel="stylesheet" href="/assets/css/works.css">
+
+{% for group in site.data.works %}
+<h2>{{ group.name }}</h2>
+
+{% if group.description %}
+<p>{{ group.description }}</p>
+{% endif %}
+
+<dl>
+  {% for project in group.projects %}
+  <div>
+    <dt>
+      {% include link.html name=project.name url=project.url %}
+    </dt>
+    <dd>
+      {{project.description}}
+    </dd>
+  </div>
+  {% endfor %}
+</dl>
+{% endfor %}
+

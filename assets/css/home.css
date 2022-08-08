@@ -53,10 +53,6 @@ dl::before, dl::after, dt::before, dt::after, dd::before, dd::after {
   font-weight: normal;
 }
 
-footer {
-  font-family: 'Joan', serif;
-}
-
 .end-mark::before {
   content: ";";
   width: 1rem;
