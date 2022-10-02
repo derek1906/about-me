@@ -17,6 +17,9 @@ html {
 }
 
 body {
+  max-width: 100%;
+  box-sizing: border-box;
+  
   background: var(--background-color);
   background-image: url("/assets/images/background.svg");
   background-attachment: fixed;
@@ -30,9 +33,10 @@ footer {
   
   margin-top: 32px;
   padding: 16px;
-  max-width: 300px;
+  max-width: 100%;
   width: 300px;
   border-top: 1px solid var(--font-color);
+  box-sizing: border-box;
 
   font-family: 'Joan', serif;
   text-align: center;
