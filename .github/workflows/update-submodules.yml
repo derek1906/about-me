@@ -25,6 +25,23 @@ jobs:
             echo "No submodule changes to commit."
             exit 0
           fi
+
+          # Get the commit summary from the submodule.
+          CHANGELOG=$(git diff --submodule=log)
+
+          # Define the commit message and PR title.
+          COMMIT_MESSAGE="Automated commit: Update submodules"
+
+          # Construct the pull request body.
+          PR_BODY=$(cat <<EOF
+Automated PR to update submodules to the latest version.
+
+**Changes:**
+```
+$CHANGELOG
+```
+EOF
+          )
           
           # Configure Git for the commit.
           git config user.name "github-actions[bot]"
@@ -34,13 +51,13 @@ jobs:
           BRANCH_NAME="bot/update-submodules-$(date +%F)"
           git checkout -b $BRANCH_NAME
           git add -A
-          git commit -m "Automated commit: Update submodules"
+          git commit -m "$COMMIT_MESSAGE"
           git push -u origin $BRANCH_NAME
           
-          # Create a pull request.
+          # Create a pull request with the detailed body.
           gh pr create \
-            --title "Update Submodules" \
-            --body "Automated PR to update submodules to the latest version." \
+            --title "$COMMIT_MESSAGE" \
+            --body "$PR_BODY" \
             --base "master"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
