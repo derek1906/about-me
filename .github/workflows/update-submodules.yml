@@ -1,0 +1,46 @@
+name: Update Submodules
+
+on:
+  schedule:
+    - cron: "0 0 1 * *" # Runs at 00:00 on the 1st of every month
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update submodules
+        run: git submodule update --remote --merge
+
+      - name: Create Pull Request if changes exist
+        run: |
+          # Exit if there are no changes to commit.
+          if git diff-index --quiet HEAD; then
+            echo "No submodule changes to commit."
+            exit 0
+          fi
+          
+          # Configure Git for the commit.
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Create a unique branch name based on the current date.
+          BRANCH_NAME="bot/update-submodules-$(date +%F)"
+          git checkout -b $BRANCH_NAME
+          git add -A
+          git commit -m "Automated commit: Update submodules"
+          git push -u origin $BRANCH_NAME
+          
+          # Create a pull request.
+          gh pr create \
+            --title "Update Submodules" \
+            --body "Automated PR to update submodules to the latest version." \
+            --base "master"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
