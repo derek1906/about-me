@@ -43,8 +43,12 @@ header {
   max-width: 0;
   opacity: 0;
   border-right: 0px solid var(--font-color);
+}
 
-  transition: all 0.2s ease;
+@media screen and (prefers-reduced-motion: no-preference) {
+  #back-button-container {
+    transition: all 0.2s ease;
+  }
 }
 
 #back-button {
@@ -61,6 +65,12 @@ header:hover #back-button-container, header:focus-within #back-button-container 
 
 #header-text {
   transition: color 0.2s ease;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  #header-text {
+    transition: color 0.2s ease;
+  }
 }
 
 header:hover #header-text {

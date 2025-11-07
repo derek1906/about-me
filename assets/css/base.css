@@ -19,18 +19,18 @@ html {
 body {
   max-width: 100%;
   box-sizing: border-box;
-  
+
   background: var(--background-color);
   background-image: url("/assets/images/background.svg");
   background-attachment: fixed;
   background-size: cover;
-  
+
   color: var(--font-color);
 }
 
 footer {
   align-self: center;
-  
+
   margin-top: 32px;
   padding: 16px;
   max-width: 100%;
@@ -48,8 +48,6 @@ footer {
   color: var(--font-color);
   outline: 0px solid var(--font-color);
   text-decoration: none;
-
-  transition: color 0.2s ease-out, outline-width 0.1s ease-out;
 }
 
 .link::after {
@@ -61,8 +59,17 @@ footer {
   left: 0;
   display: block;
   background: var(--font-color);
-  transition: height 0.2s ease-out;
   z-index: -1;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  .link {
+    transition: color 0.2s ease-out, outline-width 0.1s ease-out;
+  }
+
+  .link::after {
+    transition: height 0.2s ease-out;
+  }
 }
 
 .link:hover::after, .link:focus::after {
@@ -82,7 +89,12 @@ footer {
   opacity: 0.35;
   font-weight: normal;
   display: inline-block;
-  transition: transform 0.2s ease-out;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  .link-arrow::before {
+    transition: transform 0.2s ease-out;
+  }
 }
 
 .link-container:hover .link, .link-container:focus-within .link {
