@@ -29,20 +29,12 @@ jobs:
             exit 0
           fi
 
-          # Get the commit summary from the submodule.
-          CHANGELOG=$(git diff --submodule=log)
-
           # Define the commit message and PR title.
           COMMIT_MESSAGE="Automated commit: Update submodules"
 
           # Construct the pull request body.
           PR_BODY=$(cat << EOF
           Automated PR to update submodules to the latest version.
-
-          **Changes:**
-          ```
-          $CHANGELOG
-          ```
           EOF
           )
 
